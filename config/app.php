@@ -122,6 +122,7 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+    'static_page_dir' => 'static_page',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +175,15 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Custom Service Provider
+         */
+        App\Providers\ProductCollectionServiceProvider::class,
+        App\Providers\ProductServiceProvider::class,
+        App\Providers\StaticPageServiceProvider::class,
+        App\Providers\ProductFilterServiceProvider::class,
+
 
     ],
 

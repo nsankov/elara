@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 
 Route::get('/robot.txt', function () {
-    dd("robot");
+    abort(404, 'robot.txt not created');
 });
 
 Route::get('/test-route', function () {
@@ -28,12 +28,16 @@ Route::get('/test-route', function () {
 
 $request = \Illuminate\Http\Request::createFromGlobals();
 
-
-$routeComponent = new \App\Components\RouteComponent($request);
-if (is_null($routeComponent->route->id)){
+try {
+    $routeComponent = new \App\Components\RouteComponent($request);
+} catch (Exception $e) {
     abort(404, 'Routing not found');//ToDo лучше переписать на исключения и ловить их в одном месте и делать abort
-
 }
+
+app()->bind('DatabaseRoute', function() use ($routeComponent){
+    return $routeComponent;
+});
+
 $controllerName = $routeComponent->getController();
 $actionName = $routeComponent->getAction();
 $name= "{$controllerName}@{$actionName}";

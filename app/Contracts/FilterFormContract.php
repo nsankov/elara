@@ -4,8 +4,7 @@ namespace App\Contracts;
 
 interface FilterFormContract
 {
-    //ToDo
+    //ToDo make FilterFormClass
 
-    public function getCategories() : CategoryFilterContract;
-//->getFeatures()[0]->getQty():int
+    public function getCategories() : CategoryFilterContract;//->getFeatures():arrayObj->getQty():int
 }
