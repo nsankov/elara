@@ -16,6 +16,7 @@ class RouteComponent implements RouteContract
 
     /** @var \App\Models\Route $route */
     public $route;
+    public $page_type;
 
 
     /**
@@ -30,7 +31,9 @@ class RouteComponent implements RouteContract
             $join->on('routes.catalog_id', '=', 'catalogs.id');
         })->first();
         if (is_null($this->route)) {
-            throw new \Exception("Not Found route");
+//            throw new \Exception("Not Found route");
+        } else {
+            $this->page_type = $this->route->page_type;
         }
 
     }
@@ -39,7 +42,7 @@ class RouteComponent implements RouteContract
         return $this->route->page_type;
     }
     public function getController() :string{
-        return ucfirst(Str::camel($this->route->page_type)) .  self::CONTROLLER_POSTFIX;
+        return ucfirst(Str::camel($this->page_type)) .  self::CONTROLLER_POSTFIX;
     }
     public function getAction() :string{
         return self::DEFAULT_ACTION;

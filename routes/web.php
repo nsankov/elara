@@ -11,6 +11,7 @@
 |
 */
 use App\Models;
+use \App\Components\RouteComponent;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,20 +30,21 @@ Route::get('/test-route', function () {
 $request = \Illuminate\Http\Request::createFromGlobals();
 
 try {
-    $routeComponent = new \App\Components\RouteComponent($request);
+    $routeComponent = new RouteComponent($request);
+
+    app()->bind('DatabaseRoute', function() use ($routeComponent){
+        return $routeComponent;
+    });
+
+    $controllerName = $routeComponent->getController();
+    $actionName = $routeComponent->getAction();
+    $name= "{$controllerName}@{$actionName}";
+
+
+
+    \Illuminate\Support\Facades\Route::any('{path}')
+        ->where('path', '[A-Za-zА-Яа-яёЁ\-\/]+')->uses($name);
 } catch (Exception $e) {
-    abort(404, 'Routing not found');//ToDo лучше переписать на исключения и ловить их в одном месте и делать abort
+    //abort(404, 'Routing not found');
 }
 
-app()->bind('DatabaseRoute', function() use ($routeComponent){
-    return $routeComponent;
-});
-
-$controllerName = $routeComponent->getController();
-$actionName = $routeComponent->getAction();
-$name= "{$controllerName}@{$actionName}";
-
-
-
-\Illuminate\Support\Facades\Route::any('{path}')
-    ->where('path', '[A-Za-zА-Яа-яёЁ\-\/]+')->uses($name);

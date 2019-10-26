@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 22 Sep 2018 17:04:46 +0000.
+ * Date: Tue, 15 Oct 2019 15:10:16 +0000.
  */
 
 namespace App\Models;
@@ -17,8 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property string $tree_path
  *
- * @property \Illuminate\Database\Eloquent\Collection $catalogs
- * @property \Illuminate\Database\Eloquent\Collection $images
+ * @property \Illuminate\Database\Eloquent\Collection $category_pictures
  * @property \Illuminate\Database\Eloquent\Collection $products
  * @property \Illuminate\Database\Eloquent\Collection $routes
  *
@@ -34,14 +33,9 @@ class Category extends Model
 		'tree_path'
 	];
 
-	public function catalogs()
+	public function category_pictures()
 	{
-		return $this->hasMany(\App\Models\Catalog::class);
-	}
-
-	public function images()
-	{
-		return $this->hasMany(\App\Models\Image::class);
+		return $this->hasMany(\App\Models\CategoryPicture::class);
 	}
 
 	public function products()

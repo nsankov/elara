@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 22 Sep 2018 17:04:46 +0000.
+ * Date: Tue, 15 Oct 2019 15:10:21 +0000.
  */
 
 namespace App\Models;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $category_id
  * @property int $manufacturer_id
- * @property string $title
+ * @property string $name
  * @property string $description
  * @property int $sku
  * @property \Carbon\Carbon $created_at
@@ -24,9 +24,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property \App\Models\Category $category
  * @property \App\Models\Manufacturer $manufacturer
  * @property \App\Models\CatalogItem $catalog_item
- * @property \Illuminate\Database\Eloquent\Collection $images
  * @property \Illuminate\Database\Eloquent\Collection $prices
  * @property \Illuminate\Database\Eloquent\Collection $features
+ * @property \Illuminate\Database\Eloquent\Collection $product_pictures
  * @property \Illuminate\Database\Eloquent\Collection $routes
  *
  * @package App\Models
@@ -42,7 +42,7 @@ class Product extends Model
 	protected $fillable = [
 		'category_id',
 		'manufacturer_id',
-		'title',
+		'name',
 		'description',
 		'sku'
 	];
@@ -62,11 +62,6 @@ class Product extends Model
 		return $this->hasOne(\App\Models\CatalogItem::class);
 	}
 
-	public function images()
-	{
-		return $this->hasMany(\App\Models\Image::class);
-	}
-
 	public function prices()
 	{
 		return $this->hasMany(\App\Models\Price::class);
@@ -78,8 +73,13 @@ class Product extends Model
 					->withPivot('value');
 	}
 
+	public function product_pictures()
+	{
+		return $this->hasMany(\App\Models\ProductPicture::class);
+	}
+
 	public function routes()
 	{
-		return $this->hasMany(\App\Models\Route::class, 'manufacturer_id', 'manufacturer_id');
+		return $this->hasMany(\App\Models\Route::class);
 	}
 }
