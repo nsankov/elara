@@ -15,8 +15,6 @@ services:
     container_name: elaradb
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password
-    ports:
-      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${DB_DATABASE}
@@ -27,8 +25,6 @@ services:
     container_name: elaradb-test
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password
-    ports:
-      - "3307:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=testing
@@ -36,8 +32,6 @@ services:
   redis:
     container_name: elara-redis
     image: redis:alpine
-    ports:
-      - "6379:6379"
 
 volumes:
   db-data:
