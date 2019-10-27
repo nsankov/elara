@@ -8,6 +8,8 @@ services:
       - mysql
       - mysql-test
       - redis
+    volumes:
+      - ./:/var/www/html
 
   mysql:
     container_name: elaradb
