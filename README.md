@@ -1,4 +1,8 @@
 # elara
+
+### Build
+     ./composer.phar install && cp .env.example .env && sed -i "s/DB_HOST=127.0.0.1/DB_HOST=elaradb/g" .env && sed -i "s/DB_PORT=3306/DB_PORT=13306/g" .env && php artisan key:generate && php artisan migrate && php artisan db:seed
+
 ###Other
 ####Generade models reliese/laravel
     php artisan code:models --table=addresses
